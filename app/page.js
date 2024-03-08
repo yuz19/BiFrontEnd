@@ -1,30 +1,23 @@
 'use server'
 import NavBar from "../components/NavBar";
-import Animation from "../components/Animation";
-import SearchBar from "../components/SearchBar";
+import Image from 'next/image';
+import bg from '@/public/bg.svg'; // Import the image
+import Formulaire from "../components/Formulaire";
 
 export default  async function Home() {
  
   return (
-    <main className="h-screen ">
+    <main className="h-screen overflow-y-hidden  ">
 
       <NavBar />
-      <div className="flex flex-col   justify-between items-center h-2/3  mt-16">
 
-        {/* titles */}
-        <div className="text-4xl font-medium text-center">
-          <h1 className="pb-14">Salut, voici la Platform BI que tout le monde recherche</h1>
-          <h1>Donner le lien de votre Entrepôt de Donne </h1>
+      <div className="inscription flex flex-row  items-center h-[91.1vh]  ">
+        <div className="">
+         <Image src={bg} width={873} height={769} alt="settings" /> {/* Use the imported image */}
         </div>
-
-        {/* searchbar */}
-        <SearchBar/>
-
-
-        {/* animation bdd */}
-        <Animation/>
-
+        <Formulaire/>
       </div>
+
 
     </main>
   );

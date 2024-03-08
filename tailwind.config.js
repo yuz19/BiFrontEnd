@@ -11,16 +11,22 @@ module.exports = {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
-        "bg-dark": "url('/bg-dark.png')",
+        "bdd": "url('/bg.png')",
       },
       colors:{
-        'primaryPurple':'#6B6FB3',
-        'secondPurple':'#A9ACE7',
-        'primaryWhite':'#F3EAEA'
+        'primaryBlue':'#134DE2',
+        'secondBlue':'#C1C1FF',
+        'primaryBlack':'#1E1E1E'
       },
       fontFamily:{
+        Montserrat:['Montserrat'],
         Inter:['Inter']
       },
+   
+      fontWeight: {
+        'wow': '800',
+      }
+     
     },
   },
   plugins: [],
