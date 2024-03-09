@@ -60,7 +60,7 @@ function Algorithme() {
       } catch (error) {
         console.error('Error submitting form data:', error.message);
       }
-      console.log(data);
+      
     }
   }
   
