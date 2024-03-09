@@ -2,33 +2,23 @@
 import React, { useEffect, useState } from 'react';
 import felic from '@/public/bxs_party.svg'; // Import the image
 import Image from 'next/image'; // Import the Image component
- 
-import Input from '../components/Input'
+
+import Input from '../components/Input';
 import Dots from './Dots';
-function formulaire() {
+
+function Formulaire() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [url, setUrl] = useState('');
-  const [level,setLevel]=useState(1);
-
-  const [contenu,setContenu]=useState('');
-
+  const [nameDb, setNameDB] = useState('');
+  const [level, setLevel] = useState(1);
+  const [contenu, setContenu] = useState('');
+  const [remarque,setRemaque]=useState(null)
   const handleChange = (e, setter) => {
     setter(e.target.value);
   };
-//   useEffect(() => {
- 
-//     if (
-//         url!==undefined
-//     ) {
-//       // Redirect to the form page
-//       window.location.href = window.location.href + '/form';
-//     }
-//   }, []);
-  const handleSubmit = async (e) => {
-    e.preventDefault();
 
-     
+  const handleSubmit = async () => {
     // Remove the protocol ("https://")
     const urlWithoutProtocol = url.replace(/^https?:\/\//, '');
 
@@ -36,21 +26,20 @@ function formulaire() {
     const urlParts = urlWithoutProtocol.split('/');
 
     // The first part is the hostname and port
-   const hostnameAndPort = urlParts[0].split(':');
-
+    const hostnameAndPort = urlParts[0].split(':');
     const port = hostnameAndPort[1] || '3306';
     const hostname = hostnameAndPort[0];
-    const database = urlParts[1] || '';
+
     try {
       const formData = {
         user: username,
         password: password,
         host: hostname,
-        database:database,
-        port:port
+        database: nameDb,
+        port: port
       };
 
-      const response = await fetch('/api/handler', {
+      const response = await fetch('http://localhost:8000/api/sql/', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -64,53 +53,63 @@ function formulaire() {
 
       console.log('Form data submitted successfully');
 
-      // Navigate to the constructed URL in the browser
+      // Redirect to the form page
       window.location.href = window.location.href + "/form";
     } catch (error) {
       console.error('Error submitting form data:', error.message);
     }
   };
-  function nextInput(){
-    setLevel(prev=>prev+1);
+
+  const nextInput = (e) => {
+    if (e.target.value === "Suivant") {
+      if((level===1 && (username==='' || password==='')) ||(level===2 && (url==='' || nameDb==='')) ){
+        setRemaque(<p className=' font-semibold text-red-500 top-8   absolute'>Veuillez remplir tous les champs.</p>)
+      }else{
+        setLevel(prev => prev + 1);
+        setRemaque('')
+      }
+    } else if (e.target.value === "Commencer") {
+      handleSubmit();
+    }
   }
-  useEffect(()=>{
-      if(level===1){
-          setContenu(
-            <>        
-            <Input name={"Nom utilisateur  [ex: root ]"} type={"text"} nameId={"DB_USER"} />
-            <Input name={"Mot de passe"} type={"password"} nameId={"DB_PASSWORD"}/>
-           </>
-          )
-      }else if(level===2){
-          setContenu(    
-            <>        
-              <Input name={"Lien pour L’entrepôt de Donne [ex: https://localhost:3306 ]"} type={"text"}  nameId={"DB_HOST_DB_PORT"}/>
-              <Input name={"Nom de la base de donne"}  type={"text"}  nameId={"DB_NAME"}/>
-            </>)
-        }else if(level===3){
-          setContenu(    
-            <>        
-                <p className=' font-medium text-2xl text-center mb-4'>Félicitions vous avez terminer la configuration</p>
-                <Image src={felic} alt='felic' width={70} height={70}  />
-            </>)
-        }
+
+  useEffect(() => {
    
-  },[,level])
+    if (level === 1) {
+      setContenu(
+        <>
+          <Input name={"Nom utilisateur [ex: root ]"} type={"text"} setfunction={setUsername} valuer={username} nameId={"DB_USER"} handleChange={handleChange} />
+          <Input name={"Mot de passe"} type={"password"}   valuer={password} nameId={"DB_PASSWORD"} setfunction={setPassword} handleChange={handleChange}  />
+        </>
+      )
+    } else if (level === 2) {
+      setContenu(
+        <>
+          <Input name={"Lien pour L’entrepôt de Données [ex: https://localhost:3306 ]"} type={"text"} nameId={"DB_HOST_DB_PORT"}  valuer={url} setfunction={setUrl} handleChange={handleChange} />
+          <Input name={"Nom de la base de donnée"} type={"text"} nameId={"DB_NAME"}  valuer={nameDb} setfunction={setNameDB} handleChange={handleChange} />
+        </>
+      )
+    } else if (level === 3) {
+      setContenu(
+        <>
+          <p className='font-medium text-2xl text-center pb-8'>Félicitations vous avez terminé la configuration</p>
+          <Image src={felic} alt='felic' width={70} height={70} />
+        </>
+      )
+    }
+  }, [level,nameDb,url,username,password]);
 
   return (
-    <div className=" w-2/3 flex flex-col  h-2/3 px-24">
-      
-      {/* <form onSubmit={handleSubmit}> */}
-        <p className=' font-[900] text-[40px] w-4/5'>Donner les informations sure votre Entrepôt de Données </p>
-        <div className='form w-4/6 flex flex-col justify-center items-center h-full '>
-
-           {contenu}
-
-            <input type='button' value={level ===3 ? 'Commencer' : 'Suivant'}  className='bg-primaryBlue w-full text-white font-medium text-[32px] h-16 font-Inter rounded-lg mt-[40px] cursor-pointer' onClick={()=>nextInput()}/>
-            <Dots/>
-        </div>
+    <div className="flex flex-col h-2/3 px-24 w-3/5">
+      <p className='font-[900] text-[42px]'>Donnez les informations sur votre Entrepôt de Données</p>
+      <div className='form w-11/12 flex flex-col  pt-20 items-center h-full relative'>
+        {remarque}
+        {contenu}
+        <input type='button' value={level === 3 ? 'Commencer' : 'Suivant'} className={`bg-primaryBlue w-full text-white font-medium text-[32px] h-16 font-Inter rounded-lg ${level === 3 ? 'mt-[36px]' : 'mt-[34px]'} cursor-pointer`} onClick={nextInput} />
+        <Dots level={level} />
+      </div>
     </div>
   );
 }
 
-export default formulaire;
+export default Formulaire;

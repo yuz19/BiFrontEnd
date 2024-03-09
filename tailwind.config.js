@@ -16,6 +16,7 @@ module.exports = {
       colors:{
         'primaryBlue':'#134DE2',
         'secondBlue':'#C1C1FF',
+        'hoverBlue':'#0330A3',
         'primaryBlack':'#1E1E1E'
       },
       fontFamily:{
@@ -25,8 +26,10 @@ module.exports = {
    
       fontWeight: {
         'wow': '800',
+      },
+      boxShadow: {
+        'start':'0px 4px 4px rgba(0, 0, 0, 0.25)'
       }
-     
     },
   },
   plugins: [],

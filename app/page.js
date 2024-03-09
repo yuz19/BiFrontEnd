@@ -11,9 +11,9 @@ export default  async function Home() {
 
       <NavBar />
 
-      <div className="inscription flex flex-row  items-center h-[91.1vh]  ">
+      <div className="inscription flex flex-row  items-center h-[87.1vh]  ">
         <div className="">
-         <Image src={bg} width={873} height={769} alt="settings" /> {/* Use the imported image */}
+         <Image src={bg} width={1100} height={769} alt="settings" /> {/* Use the imported image */}
         </div>
         <Formulaire/>
       </div>

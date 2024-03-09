@@ -1,22 +1,31 @@
-// pages/api/save-credentials.js
-
-import fs from 'fs';
-import path from 'path';
-
-export default function handler(req, res) {
+export default async function handler(req, res) {
   if (req.method === 'POST') {
-    const { host, user, password, database , port } = req.body;
+    const { host, user, password, database, port } = req.body;
 
-    // Write credentials to .env file
-    const envFilePath = path.join(process.cwd(), '../BiBackend/.env');
-    const envData = `DB_HOST=${host}
-DB_USER=${user}
-DB_PASSWORD=${password}
-DB_NAME=${database}
-DB_PORT=${port}`;
-    fs.writeFileSync(envFilePath, envData);
+    // Prepare the request body
+    const requestBody = JSON.stringify({ host, user, password, database, port });
 
-    res.status(200).json({ message: 'Credentials saved successfully' });
+    // Send the identification data to the Django API
+    try {
+      const response = await fetch('http://localhost:8000/api/sql/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: requestBody,
+      });
+
+      // Check if the request was successful
+      if (response.ok) {
+        res.status(200).json({ message: 'Credentials saved successfully' });
+      } else {
+        // Handle the case where the request was not successful
+        throw new Error('Failed to save credentials');
+      }
+    } catch (error) {
+      console.error('Error saving credentials:', error);
+      res.status(500).json({ error: 'Failed to save credentials' });
+    }
   } else {
     res.status(405).json({ error: 'Method Not Allowed' });
   }
