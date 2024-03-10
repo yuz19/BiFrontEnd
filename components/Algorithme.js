@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import StartAnalyse from './StartAnalyse';
 import Mesures from './Mesures';
 import CheckBox from './CheckBox';
+import { useRouter,usePathname} from 'next/navigation';
 
 function Algorithme() {
   const [mesure1,setMesure1]=useState("");
@@ -15,6 +16,9 @@ function Algorithme() {
     proposer: false
   });
   const [remarque,setRemarque]=useState("")
+  const [analyseResult,setAnalyseResult]=useState("")
+  const router = useRouter();
+  const pathname = usePathname();
   const  startAnalyse= async() => {
     if (!mesure1 || !mesure2) {
       setRemarque(<p className=' font-semibold text-red-500 top-28  absolute'>Veuillez sélectionner au moins une mesure.</p>);
@@ -58,13 +62,30 @@ function Algorithme() {
       console.log('Données reçues de /api/analyse :', reponsed);
       
       // Traitement des données reçues et mise à jour de l'état
-      setAnalysisResult(data);
-        // // Redirect to the form page
-        // window.location.href = window.location.href + "/form";
+       // setAnalyseResult(reponsed);
+      console.log(JSON.stringify(reponsed))
+      
+
+        // history.pushState({ analysisResult: JSON.stringify(reponsed)}, "", pathname.replace("/form","/Dashboard"));
+        // router.push("Dashboard");
+        window.location.href = window.location.href + "/Dashboard";
+
       } catch (error) {
         console.error('Error submitting form data:', error.message);
       }
-      
+      // router.push({
+      //   pathname:"Dashboard",
+      //   query:{  analysisResult: JSON.stringify(reponsed) }}
+      // )
+      //   .then(() => console.log('Navigation succeeded'))
+      //   .catch(err => console.error('Navigation failed:', err));
+
+
+
+        // router.push({
+        //     pathname: "/Dashboard",
+        //     query: { "pattern": "test" } // Assuming searchText is the state you want to pass
+        // });
     }
   }
   

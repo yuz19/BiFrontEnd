@@ -8,8 +8,8 @@ function Mesures({setMesure1,setMesure2,handleChange}) {
 
       <div className='flex flex-row justify-between w-5/12  '>
 
-        <input type='text' placeholder='mesure 1' className='px-2 py-4 focus:outline-none   rounded-md border-solid border-2 border-primaryBlue' onChange={(e) => handleChange(e, setMesure1)} />
-        <input type='text' placeholder='mesure 2' className='px-2 py-4 focus:outline-none rounded-md border-solid border-2 border-primaryBlue' onChange={(e) => handleChange(e, setMesure2)} />
+        <input type='text' placeholder='mesure 1' defaultValue="profit" className='px-2 py-4 focus:outline-none   rounded-md border-solid border-2 border-primaryBlue' onChange={(e) => handleChange(e, setMesure1)} />
+        <input type='text' placeholder='mesure 2' defaultValue="prix_ventes" className='px-2 py-4 focus:outline-none rounded-md border-solid border-2 border-primaryBlue' onChange={(e) => handleChange(e, setMesure2)} />
 
       </div>
 
