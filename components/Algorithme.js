@@ -54,9 +54,13 @@ function Algorithme() {
       }
 
       console.log('Form data submitted successfully');
-
-        // Redirect to the form page
-        window.location.href = window.location.href + "/form";
+      const reponsed = await response.json();
+      console.log('Données reçues de /api/analyse :', reponsed);
+      
+      // Traitement des données reçues et mise à jour de l'état
+      setAnalysisResult(data);
+        // // Redirect to the form page
+        // window.location.href = window.location.href + "/form";
       } catch (error) {
         console.error('Error submitting form data:', error.message);
       }
