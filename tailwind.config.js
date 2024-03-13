@@ -28,7 +28,7 @@ module.exports = {
         'wow': '800',
       },
       boxShadow: {
-        'start':'0px 4px 4px rgba(0, 0, 0, 0.25)'
+        'start':'0px 4px 4px rgba(0, 0, 0, 0.25)',
       }
     },
   },

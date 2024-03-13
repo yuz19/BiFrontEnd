@@ -4,16 +4,16 @@ import dynamic from 'next/dynamic';
 
 const Plot = dynamic(() => import('react-plotly.js'), { ssr: false });
 
-const PlotlyGraph = ({ listdatagranger }) => {
-  const [col1, setCol1] = useState();
-  const [col2, setCol2] = useState();
+const PlotlyGraph = ({ listdatagranger,col1,col2 }) => {
+  // const [col11, setCol1] = useState();
+  // const [col21, setCol2] = useState();
   const [graph, setGraph] = useState();
 
   useEffect(() => {
     if (!listdatagranger || listdatagranger.length === 0) return;
 
-    setCol1(listdatagranger[1][0]);
-    setCol2(listdatagranger[1][1]);
+    // setCol1(listdatagranger[1][0]);
+    // setCol2(listdatagranger[1][1]);
 
     // const xData1 = listdatagranger[2][col1] ? listdatagranger[2][col1].slice(0, 2000).length : [];
     // const yData1 = listdatagranger[2][col1] ? listdatagranger[2][col1].slice(0, 2000) : [];
@@ -21,11 +21,11 @@ const PlotlyGraph = ({ listdatagranger }) => {
     // const xData2 = listdatagranger[2][col2] ? listdatagranger[2][col2].slice(0, 2000).length : [];
     // const yData2 = listdatagranger[2][col2] ? listdatagranger[2][col2].slice(0, 2000) : [];
  
-      const xData1 = listdatagranger[2][col1] ? listdatagranger[2][col1].length : [];
-      const yData1 = listdatagranger[2][col1] ? listdatagranger[2][col1] : [];
+      const xData1 = listdatagranger[col1] ? listdatagranger[col1].length : [];
+      const yData1 = listdatagranger[col1] ? listdatagranger[col1] : [];
   
-      const xData2 = listdatagranger[2][col2] ? listdatagranger[2][col2].length : [];
-      const yData2 = listdatagranger[2][col2] ? listdatagranger[2][col2] : [];
+      const xData2 = listdatagranger[col2] ? listdatagranger[col2].length : [];
+      const yData2 = listdatagranger[col2] ? listdatagranger[col2] : [];
       const data = [
         {
           x: xData1,
@@ -33,7 +33,7 @@ const PlotlyGraph = ({ listdatagranger }) => {
           type: 'scatter',
           name: col1,
           mode: 'lines',
-          marker: { color: 'red' },
+          marker: { color: '#EF553B' },
         },
         {
           x: xData2,
@@ -41,7 +41,7 @@ const PlotlyGraph = ({ listdatagranger }) => {
           name: col2,
           type: 'scatter',
           mode: 'lines',
-          marker: { color: 'blue' },
+          marker: { color: '#134DE2' },
         }
       ];
   
@@ -49,7 +49,7 @@ const PlotlyGraph = ({ listdatagranger }) => {
    
         title: 'Data Visualisation',
         xaxis: {
-          title: 'Index',
+          title: '',
           range: [0, 500]
         },
         yaxis: {
