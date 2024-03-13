@@ -34,7 +34,7 @@ function Dashboard() {
         //Acces the array of JSON objects within the "apriori" array
         const aprioriData = jsonData[1]?.apriori;
         setListDataApriori(aprioriData); // Set data in state
- 
+        console.log(jsonData)
         setLoading(false);
       } catch (error) {
         setError(error.message);
