@@ -45,7 +45,7 @@ function Granger({listdatagranger}) {
     
   
         
-                <AlgoBox clickG={clickG} setClickG={setClickG} name={"Granger Causalité"} graph={graphG} correct={listdatagranger[0][0].includes("Causalité trouvée ")? <p className=' text-xl font-medium text-green-700  mt-7'>(Causalité trouve)</p>: <p className='text-xl font-medium text-red-700  mt-7'>(Causalité non trouve)</p>}/>
+                <AlgoBox clickG={clickG} setClickG={setClickG} name={"Granger Causalité"} graph={graphG} correct={(listdatagranger && listdatagranger[0][0].includes("Causalité trouvée "))? <p className=' text-xl font-medium text-green-700  mt-7'>(Causalité trouve)</p>: <p className='text-xl font-medium text-red-700  mt-7'>(Causalité non trouve)</p>}/>
          
         
 

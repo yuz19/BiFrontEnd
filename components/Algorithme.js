@@ -68,7 +68,7 @@ function Algorithme() {
 
         // history.pushState({ analysisResult: JSON.stringify(reponsed)}, "", pathname.replace("/form","/Dashboard"));
         // router.push("Dashboard");
-        window.location.href = window.location.href + "/Dashboard";
+        window.location.href = window.location.href.replace("/form","/Dashboard") ;
 
       } catch (error) {
         console.error('Error submitting form data:', error.message);

@@ -2,7 +2,9 @@ import React,{useState} from 'react'
 import x from '@/public/x.svg';
 import Image from 'next/image'; 
 function Mesures({setMesure1,setMesure2,handleChange}) {
-
+  const effacer=()=>{
+    
+  }
   return (
     <div className='border-dashed w-full border-2 border-primaryBlack h-24 rounded-2xl flex flex-row justify-between items-center px-8'>
 
@@ -13,7 +15,7 @@ function Mesures({setMesure1,setMesure2,handleChange}) {
 
       </div>
 
-        <div className='flex flex-row-reverse h-20 gap-2  px-4 py-2  shadow-start rounded-[48px] cursor-pointer'>
+        <div className='flex flex-row-reverse h-20 gap-2  px-4 py-2  shadow-start rounded-[48px] cursor-pointer' onClick={effacer}>
             <input
               type='button'
               value={"Effacer"}

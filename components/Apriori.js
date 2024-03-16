@@ -7,22 +7,23 @@ function Apriori({listdataApriori}) {
     const [graph,setGraph]=useState();
     useEffect(()=>{
         setGraph(
-            <div class="relative w-1/2 overflow-x-auto shadow-start sm:rounded-lg mb-12">
+            <div className="relative w-1/2 overflow-x-auto shadow-start sm:rounded-lg mb-12">
 
-            <table class="w-full text-sm text-left rtl:text-right ">
+            <table className="w-full text-sm text-left rtl:text-right ">
 
-                <thead class="text-xs text-white uppercase bg-gray-50 dark:bg-primaryBlue ">
+                <thead className="text-xs text-white uppercase bg-gray-50 dark:bg-primaryBlue ">
                     <tr>
-                        <th scope="col" class="px-6 py-3">
+                        <th scope="col" className="px-6 py-3">
                         support
                         </th>
-                        <th scope="col" class="px-6 py-3">
+                        <th scope="col" className="px-6 py-3">
                         itemsets
                         </th>
                     </tr>
                 </thead>
+                
                 <tbody>
-                {listdataApriori.support.map((supportValue, index) => (
+                {listdataApriori && listdataApriori.support.map((supportValue, index) => (
                     <tr key={index} className="odd:bg-white     border-b dark:border-gray-200">
                         <th scope="row" className="px-6 py-4 font-medium text-primaryBlack whitespace-nowrap ">
                             {supportValue}
@@ -42,7 +43,7 @@ function Apriori({listdataApriori}) {
 
 
         <>
-                <AlgoBox clickG={clickA} setClickG={setClickA} name={"Apriori"} graph={graph} correct={listdataApriori.itemsets.length>0 ? <p className=' text-xl font-medium text-green-700 mt-7'>(Itemsets trouve)</p>: <p className='text-xl font-medium text-red-700  mt-7'>(Itemsets non trouve)</p>}/>
+     <AlgoBox clickG={clickA} setClickG={setClickA} name={"Apriori"} graph={graph} correct={(listdataApriori && listdataApriori.itemsets.length>0 )? <p className=' text-xl font-medium text-green-700 mt-7'>(Itemsets trouve)</p>: <p className='text-xl font-medium text-red-700  mt-7'>(Itemsets non trouve)</p>}/>
         
         </>   
        
